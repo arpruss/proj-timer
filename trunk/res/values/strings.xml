@@ -19,7 +19,7 @@
 
 <resources>
 
-    <string name="ProjTimer_app_name">ProjTimer</string>
+    <string name="app_name">ProjTimer</string>
 
     <!--
      Main / media select activity
