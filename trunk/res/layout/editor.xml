@@ -27,11 +27,11 @@
        android:layout_height="0px"
        android:layout_weight="1">
 
-      <!-- ImageView android:id="@+id/bkgnd"
+      <ImageView android:id="@+id/bkgnd"
        android:layout_width="fill_parent"
        android:layout_height="fill_parent"
        android:scaleType="centerCrop"
-       android:src="@drawable/bkgnd" -->
+       android:src="@drawable/bkgnd" />
 
       <mobi.omegacentauri.ptimer.WaveformView android:id="@+id/waveform"
        android:layout_width="fill_parent"
@@ -41,17 +41,19 @@
         android:nextFocusDown="@+id/endmarker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/marker_left"
+        android:src="@drawable/marker_left_normal"
         android:contentDescription="@string/start_marker" />
-
+<!--         android:src="@drawable/marker_left"  -->
+      
       <mobi.omegacentauri.ptimer.MarkerView android:id="@+id/endmarker"
         android:nextFocusUp="@+id/startmarker"
         android:nextFocusDown="@+id/info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/marker_right"
+        android:src="@drawable/marker_right_normal"
         android:contentDescription="@string/end_marker" />
-
+<!--         android:src="@drawable/marker_right"  -->
+      
     </AbsoluteLayout>
 
     <TextView android:id="@+id/info"
@@ -96,6 +98,26 @@
        android:contentDescription="@string/ffwd"
        android:src="@android:drawable/ic_media_next" />
 
+      <LinearLayout style="@style/VerticalDividerLeft" />
+      <LinearLayout style="@style/VerticalDividerRight" />
+
+      <ImageButton android:id="@+id/zoom_in"
+       android:layout_width="52dip"
+       android:layout_height="52dip"
+       android:layout_marginLeft="5dip"
+       android:layout_marginTop="9dip"
+       android:layout_marginBottom="8dip"
+       android:contentDescription="@string/zoom_in"
+       android:src="@drawable/button_zoom_in" />
+
+      <ImageButton android:id="@+id/zoom_out"
+       android:layout_width="52dip"
+       android:layout_height="52dip"
+       android:layout_marginTop="9dip"
+       android:layout_marginBottom="8dip"
+       android:contentDescription="@string/zoom_out"
+       android:src="@drawable/button_zoom_out" />
+
     </LinearLayout>
 
     <LinearLayout style="@style/HorizontalDividerTop" />
@@ -108,54 +130,79 @@
      android:gravity="center_vertical" >
 
       <LinearLayout
-         android:layout_width="fill_parent" 
+         android:layout_width="wrap_content" 
          android:layout_height="fill_parent"
          android:layout_marginTop="6dip"
+         android:layout_marginLeft="5dip"
+         android:layout_marginRight="5dip"
          android:gravity="center"
-         android:orientation="horizontal">
+         android:orientation="vertical">
 
         <TextView
            android:id="@+id/mark_start"
            android:text="@string/start_label"
            android:textColor="#ffffffff"
-           android:textSize="14sp"
+           android:textSize="12sp"
            android:textStyle="bold"
            android:clickable="true"
-           android:gravity="center"
            android:layout_width="wrap_content" 
            android:layout_height="31dip" />
-
-        <EditText android:id="@+id/starttext"
-           android:textSize="16sp"
-           android:inputType="number|numberDecimal"
-	   android:layout_marginLeft="10dip"
-	   android:layout_marginRight="30dip"
-           android:layout_width="70dip"
-           android:layout_height="31dip"
-           android:gravity="center"
-           android:contentDescription="@string/start_label" />
 
         <TextView
            android:id="@+id/mark_end"
            android:text="@string/end_label"
            android:textColor="#ffffffff"
-           android:textSize="14sp"
+           android:textSize="12sp"
            android:textStyle="bold"
            android:clickable="true"
-           android:gravity="center"
            android:layout_width="wrap_content" 
            android:layout_height="31dip" />
 
-        <EditText android:id="@+id/endtext"
-           android:textSize="16sp"
-           android:inputType="number|numberDecimal"
+      </LinearLayout>
+
+      <LinearLayout
+         android:layout_width="wrap_content" 
+         android:layout_height="fill_parent"
+	 android:layout_marginRight="5dip"
+         android:gravity="center"
+         android:orientation="vertical">
+
+        <EditText android:id="@+id/starttext"
+           android:textSize="11sp"
+	   android:layout_marginTop="5dip"
            android:layout_width="70dip"
            android:layout_height="31dip"
-	   android:layout_marginLeft="10dip"
-           android:gravity="center"
+           android:contentDescription="@string/start_label" />
+
+        <EditText android:id="@+id/endtext"
+           android:textSize="11sp"
+           android:layout_width="70dip"
+           android:layout_height="31dip"
            android:contentDescription="@string/end_label" />
 
       </LinearLayout>
+
+      <LinearLayout style="@style/VerticalDividerLeft" />
+      <LinearLayout style="@style/VerticalDividerRight" />
+
+      <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="fill_parent"
+         android:layout_marginLeft="5dip"
+         android:layout_marginRight="5dip"
+         android:gravity="center">
+
+        <ImageButton android:id="@+id/save"
+         android:layout_width="52dip"
+         android:layout_height="52dip"
+         android:layout_marginTop="5dip"
+         android:src="@drawable/menu_save"
+         android:contentDescription="@string/save_button" />
+
+      </LinearLayout>
+
+      <LinearLayout style="@style/VerticalDividerLeft" />
+      <LinearLayout style="@style/VerticalDividerRight" />
 
    </LinearLayout>
 
