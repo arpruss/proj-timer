@@ -22,15 +22,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.DashPathEffect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import mobi.omegacentauri.ptimer.soundfile.CheapSoundFile;
 
-import java.lang.Math;
 import java.util.Map;
 
 /**
@@ -53,8 +50,6 @@ public class WaveformView extends View {
         public void waveformTouchEnd();
         public void waveformFling(float x);
         public void waveformDraw();
-        public void waveformZoomIn();
-        public void waveformZoomOut();
     };
 
     // Colors
@@ -80,10 +75,8 @@ public class WaveformView extends View {
     private int mSelectionEnd;
     private int mPlaybackPos;
     private float mDensity;
-    private float mInitialScaleSpan;
     private WaveformListener mListener;
     private GestureDetector mGestureDetector;
-    private ScaleGestureDetector mScaleGestureDetector;
     private boolean mInitialized;
 
     public WaveformView(Context context, AttributeSet attrs) {
@@ -139,32 +132,6 @@ public class WaveformView extends View {
 		    }
 		});
 
-	mScaleGestureDetector = new ScaleGestureDetector(
-	        context,
-		new ScaleGestureDetector.SimpleOnScaleGestureListener() {
-		    public boolean onScaleBegin(ScaleGestureDetector d) {
-                        Log.i("Ringdroid", "ScaleBegin " + d.getCurrentSpanX());
-                        mInitialScaleSpan = Math.abs(d.getCurrentSpanX());
-			return true;
-		    }
-		    public boolean onScale(ScaleGestureDetector d) {
-                        float scale = Math.abs(d.getCurrentSpanX());
-                        Log.i("Ringdroid", "Scale " + (scale - mInitialScaleSpan));
-                        if (scale - mInitialScaleSpan > 40) {
-                            mListener.waveformZoomIn();
-                            mInitialScaleSpan = scale;
-                        }
-                        if (scale - mInitialScaleSpan < -40) {
-                            mListener.waveformZoomOut();
-                            mInitialScaleSpan = scale;
-                        }
-			return true;
-		    }
-		    public void onScaleEnd(ScaleGestureDetector d) {
-                        Log.i("Ringdroid", "ScaleEnd " + d.getCurrentSpanX());
-		    }
-		});
-
         mSoundFile = null;
         mLenByZoomLevel = null;
         mValuesByZoomLevel = null;
@@ -179,7 +146,6 @@ public class WaveformView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-	mScaleGestureDetector.onTouchEvent(event);
 	if (mGestureDetector.onTouchEvent(event)) {
 	    return true;
 	}
@@ -196,10 +162,6 @@ public class WaveformView extends View {
             break;
         }
         return true;
-    }
-
-    public boolean hasSoundFile() {
-        return mSoundFile != null;
     }
 
     public void setSoundFile(CheapSoundFile soundFile) {
