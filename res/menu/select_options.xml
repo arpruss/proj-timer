@@ -3,7 +3,7 @@
     <item android:id="@+id/action_search_filter"
           android:icon="@drawable/ic_action_search"
           android:title="@string/search_edit_box"
-          android:showAsAction="always|collapseActionView"
+          android:showAsAction="always"
           android:actionViewClass="android.widget.SearchView" />
 
     <item android:id="@+id/action_record"
