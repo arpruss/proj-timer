@@ -41,19 +41,16 @@
         android:nextFocusDown="@+id/endmarker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/marker_left_normal"
+        android:src="@drawable/marker_left"
         android:contentDescription="@string/start_marker" />
-<!--         android:src="@drawable/marker_left"  -->
       
       <mobi.omegacentauri.ptimer.MarkerView android:id="@+id/endmarker"
         android:nextFocusUp="@+id/startmarker"
         android:nextFocusDown="@+id/info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/marker_right_normal"
+        android:src="@drawable/marker_right"
         android:contentDescription="@string/end_marker" />
-<!--         android:src="@drawable/marker_right"  -->
-      
     </AbsoluteLayout>
 
     <TextView android:id="@+id/info"
