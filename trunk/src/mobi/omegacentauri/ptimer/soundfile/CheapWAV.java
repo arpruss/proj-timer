@@ -57,8 +57,14 @@ public class CheapWAV extends CheapSoundFile {
         return mNumFrames;
     }
 
+    // approximately 1 ms precision for standard sampling rates
     public int getSamplesPerFrame() {
-        return mSampleRate / 50;
+    	if (mSampleRate % 800 == 0)
+    		return mSampleRate / 800;
+    	else if (mSampleRate % 735 == 0)
+    		return mSampleRate / 735;
+    	else
+    		return 50;
     }
 
     public int[] getFrameOffsets() {
@@ -170,7 +176,7 @@ public class CheapWAV extends CheapSoundFile {
                         "Bad WAV file: data chunk before fmt chunk");
                 }
 
-                int frameSamples = (mSampleRate * mChannels) / 50;
+                int frameSamples = getSamplesPerFrame() * mChannels;
                 mFrameBytes = frameSamples * 2;
 
                 mNumFrames = (chunkLen + (mFrameBytes - 1)) / mFrameBytes;
