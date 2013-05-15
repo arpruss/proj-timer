@@ -52,9 +52,9 @@ import java.util.ArrayList;
 /**
  * Main screen that shows up when you launch Ringdroid.  Handles selecting
  * an audio file or using an intent to record a new one, and then
- * launches RingdroidEditActivity from here.
+ * launches PTimerEditActivity from here.
  */
-public class RingdroidSelectActivity
+public class PTimerSelectActivity
     extends ListActivity
     implements TextWatcher
 {
@@ -79,7 +79,7 @@ public class RingdroidSelectActivity
     private static final int CMD_SET_AS_CONTACT = 7;
 
 
-    public RingdroidSelectActivity() {
+    public PTimerSelectActivity() {
     }
 
     /**
@@ -276,7 +276,7 @@ public class RingdroidSelectActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case CMD_ABOUT:
-            RingdroidEditActivity.onAbout(this);
+            PTimerEditActivity.onAbout(this);
             return true;
 	case CMD_PRIVACY:
 	    showPrivacyDialog();
@@ -342,7 +342,7 @@ public class RingdroidSelectActivity
             Intent intent = new Intent(Intent.ACTION_EDIT, Uri.parse(""));
             intent.putExtra("privacy", true);
             intent.setClassName("mobi.omegacentauri.ptimer",
-				"mobi.omegacentauri.ptimer.RingdroidEditActivity");
+				"mobi.omegacentauri.ptimer.PTimerEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't show privacy dialog");
@@ -356,21 +356,21 @@ public class RingdroidSelectActivity
         // otherwise it has to be a notification so set the default notification sound
         if (0 != c.getInt(c.getColumnIndexOrThrow(MediaStore.Audio.Media.IS_RINGTONE))){
             RingtoneManager.setActualDefaultRingtoneUri(
-                    RingdroidSelectActivity.this,
+                    PTimerSelectActivity.this,
                     RingtoneManager.TYPE_RINGTONE,
                     getUri());
             Toast.makeText(
-                    RingdroidSelectActivity.this,
+                    PTimerSelectActivity.this,
                     R.string.default_ringtone_success_message,
                     Toast.LENGTH_SHORT)
                     .show();
         } else {
             RingtoneManager.setActualDefaultRingtoneUri(
-                    RingdroidSelectActivity.this,
+                    PTimerSelectActivity.this,
                     RingtoneManager.TYPE_NOTIFICATION,
                     getUri());
             Toast.makeText(
-                    RingdroidSelectActivity.this,
+                    PTimerSelectActivity.this,
                     R.string.default_notification_success_message,
                     Toast.LENGTH_SHORT)
                     .show();
@@ -442,7 +442,7 @@ public class RingdroidSelectActivity
             title = getResources().getText(R.string.delete_audio);
         }
 
-        new AlertDialog.Builder(RingdroidSelectActivity.this)
+        new AlertDialog.Builder(PTimerSelectActivity.this)
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(
@@ -490,7 +490,7 @@ public class RingdroidSelectActivity
     }
 
     private void showFinalAlert(CharSequence message) {
-        new AlertDialog.Builder(RingdroidSelectActivity.this)
+        new AlertDialog.Builder(PTimerSelectActivity.this)
         .setTitle(getResources().getText(R.string.alert_title_failure))
         .setMessage(message)
         .setPositiveButton(
@@ -513,7 +513,7 @@ public class RingdroidSelectActivity
                     mWasGetContentIntent);
             intent.setClassName(
                     "mobi.omegacentauri.ptimer",
-            "mobi.omegacentauri.ptimer.RingdroidEditActivity");
+            "mobi.omegacentauri.ptimer.PTimerEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor");
@@ -531,7 +531,7 @@ public class RingdroidSelectActivity
                     mWasGetContentIntent);
             intent.setClassName(
                     "mobi.omegacentauri.ptimer",
-            "mobi.omegacentauri.ptimer.RingdroidEditActivity");
+            "mobi.omegacentauri.ptimer.PTimerEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor");

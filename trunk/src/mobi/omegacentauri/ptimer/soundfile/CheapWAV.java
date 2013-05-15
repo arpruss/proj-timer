@@ -23,7 +23,7 @@ import java.io.InputStream;
 
 /**
  * CheapWAV represents a standard 16-bit WAV file, splitting it into
- * artificial frames of 20 ms and taking the maximum of each frame to
+ * short artificial frames and taking the maximum of each frame to
  * get an approximation of the waveform contour.
  */
 public class CheapWAV extends CheapSoundFile {
@@ -47,6 +47,9 @@ public class CheapWAV extends CheapSoundFile {
     private int mFileSize;
     private int mSampleRate;
     private int mChannels;
+    private int mMode = MODE_AVG;
+    public static final int MODE_MAX = 0;
+    public static final int MODE_AVG = 1;
     // Member variables used during initialization
     private int mOffset;
 
@@ -196,17 +199,35 @@ public class CheapWAV extends CheapSoundFile {
 
                     stream.read(oneFrame, 0, oneFrameBytes);
 
-                    int maxGain = 0;
-                    for (int j = 1; j < oneFrameBytes; j += 4 * mChannels) {
-                        int val = java.lang.Math.abs(oneFrame[j]);
-                        if (val > maxGain) {
-                            maxGain = val;
-                        }
+                    int gain;
+                    switch(mMode) {
+                    case MODE_MAX:
+                    	gain = 0;
+	                    for (int j = 1; j < oneFrameBytes; j += 4 * mChannels) {
+	                        int val = java.lang.Math.abs(oneFrame[j]);
+	                        if (val > gain) {
+	                            gain = val;
+	                        }
+	                    }
+	                    break;
+                    case MODE_AVG:
+                    default:
+                    	double totalGain = 0;
+                    	int count = 0;
+	                    for (int j = 1; j < oneFrameBytes; j += 4 * mChannels) {
+	                        totalGain += java.lang.Math.abs(oneFrame[j]);
+	                        count++;
+	                    }
+	                    if (0<count)
+	                    	gain = (int)(totalGain/count);
+	                    else
+	                    	gain = 0;
+	                    break;
                     }
 
                     mFrameOffsets[frameIndex] = mOffset;
                     mFrameLens[frameIndex] = oneFrameBytes;
-                    mFrameGains[frameIndex] = maxGain;
+                    mFrameGains[frameIndex] = gain;
 
                     frameIndex++;
                     mOffset += oneFrameBytes;

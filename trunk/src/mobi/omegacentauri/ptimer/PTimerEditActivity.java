@@ -88,7 +88,7 @@ import org.apache.http.params.HttpParams;
  * the waveform display, current horizontal offset, marker handles,
  * start / end text boxes, and handles all of the buttons and controls.
  */
-public class RingdroidEditActivity extends Activity
+public class PTimerEditActivity extends Activity
     implements MarkerView.MarkerListener,
                WaveformView.WaveformListener
 {
@@ -576,7 +576,7 @@ public class RingdroidEditActivity extends Activity
     }
 
     //
-    // Static About dialog method, also called from RingdroidSelectActivity
+    // Static About dialog method, also called from PTimerSelectActivity
     //
     
     public static void onAbout(final Activity activity) {
@@ -688,7 +688,7 @@ public class RingdroidEditActivity extends Activity
         mLoadingStartTime = System.currentTimeMillis();
         mLoadingLastUpdateTime = System.currentTimeMillis();
         mLoadingKeepGoing = true;
-        mProgressDialog = new ProgressDialog(RingdroidEditActivity.this);
+        mProgressDialog = new ProgressDialog(PTimerEditActivity.this);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.setTitle(R.string.progress_dialog_loading);
         mProgressDialog.setCancelable(true);
@@ -799,7 +799,7 @@ public class RingdroidEditActivity extends Activity
                         };
                     mHandler.post(runnable);
                 } else {
-                    RingdroidEditActivity.this.finish();
+                    PTimerEditActivity.this.finish();
                 }
             } 
         }.start();
@@ -1151,7 +1151,7 @@ public class RingdroidEditActivity extends Activity
             title = getResources().getText(R.string.alert_title_success);
         }
 
-        new AlertDialog.Builder(RingdroidEditActivity.this)
+        new AlertDialog.Builder(PTimerEditActivity.this)
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(
@@ -1391,7 +1391,7 @@ public class RingdroidEditActivity extends Activity
         // If it's a notification, give the user the option of making
         // this their default notification.  If they say no, we're finished.
         if (mNewFileKind == FileSaveDialog.FILE_KIND_NOTIFICATION) {
-            new AlertDialog.Builder(RingdroidEditActivity.this)
+            new AlertDialog.Builder(PTimerEditActivity.this)
                 .setTitle(R.string.alert_title_success)
                 .setMessage(R.string.set_default_notification)
                 .setPositiveButton(R.string.alert_yes_button,
@@ -1399,7 +1399,7 @@ public class RingdroidEditActivity extends Activity
                         public void onClick(DialogInterface dialog,
                                             int whichButton) {
                             RingtoneManager.setActualDefaultRingtoneUri(
-                                RingdroidEditActivity.this,
+                                PTimerEditActivity.this,
                                 RingtoneManager.TYPE_NOTIFICATION,
                                 newUri);
                             sendStatsToServerIfAllowedAndFinish();
@@ -1428,11 +1428,11 @@ public class RingdroidEditActivity extends Activity
                     switch (actionId) {
                     case R.id.button_make_default:
                         RingtoneManager.setActualDefaultRingtoneUri(
-                            RingdroidEditActivity.this,
+                            PTimerEditActivity.this,
                             RingtoneManager.TYPE_RINGTONE,
                             newUri);
                         Toast.makeText(
-                            RingdroidEditActivity.this,
+                            PTimerEditActivity.this,
                             R.string.default_ringtone_success_message,
                             Toast.LENGTH_SHORT)
                             .show();
@@ -1494,7 +1494,7 @@ public class RingdroidEditActivity extends Activity
         if (serverAllowed == SERVER_ALLOWED_YES) {
             Log.i("Ringdroid", "SERVER_ALLOWED_YES");
 
-            new AlertDialog.Builder(RingdroidEditActivity.this)
+            new AlertDialog.Builder(PTimerEditActivity.this)
                 .setTitle(R.string.alert_title_failure)
                 .setMessage(errorString)
                 .setPositiveButton(
@@ -1793,7 +1793,7 @@ public class RingdroidEditActivity extends Activity
                 getResources().getText(R.string.server_prompt));
         Linkify.addLinks(message, Linkify.ALL);
 
-        final AlertDialog dialog = new AlertDialog.Builder(RingdroidEditActivity.this)
+        final AlertDialog dialog = new AlertDialog.Builder(PTimerEditActivity.this)
             .setTitle(R.string.server_title)
             .setMessage(message)
             .setPositiveButton(
