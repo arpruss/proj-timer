@@ -40,7 +40,7 @@
 <!--  android:theme="@android:style/Theme.Holo"-->
 
         <!-- Main activity that's launched when the user opens Ringdroid. -->
-        <activity android:name="RingdroidSelectActivity"
+        <activity android:name=".PTimerSelectActivity"
                   android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,7 +61,7 @@
              Controls viewing the waveform, setting the start and end
              positions, playback, and triggering saving of the output
              file. -->
-        <activity android:name="RingdroidEditActivity"
+        <activity android:name=".PTimerEditActivity"
                   android:configChanges="orientation|keyboardHidden"
                   android:windowSoftInputMode="adjustResize">
             <intent-filter android:label="@string/edit_intent">
