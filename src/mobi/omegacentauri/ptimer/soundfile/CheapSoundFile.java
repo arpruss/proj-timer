@@ -53,10 +53,7 @@ public class CheapSoundFile {
     }
 
     static Factory[] sSubclassFactories = new Factory[] {
-        CheapAAC.getFactory(),
-        CheapAMR.getFactory(),
-        CheapMP3.getFactory(),
-        CheapWAV.getFactory(),
+        CheapWAV.getFactory()
     };
 
     static ArrayList<String> sSupportedExtensions = new ArrayList<String>();

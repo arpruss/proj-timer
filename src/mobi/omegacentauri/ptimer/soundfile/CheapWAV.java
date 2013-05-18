@@ -47,7 +47,7 @@ public class CheapWAV extends CheapSoundFile {
     private int mFileSize;
     private int mSampleRate;
     private int mChannels;
-    private int mMode = MODE_AVG;
+    private int mMode = MODE_MAX;
     public static final int MODE_MAX = 0;
     public static final int MODE_AVG = 1;
     // Member variables used during initialization
@@ -70,6 +70,13 @@ public class CheapWAV extends CheapSoundFile {
     		return 50;
     }
 
+    @Override
+    public int getSeekableFrameOffset(int frame) {
+    	if (frame<0 || frame >= mFrameOffsets.length)
+    		return -1;
+    	else
+    		return mFrameOffsets[frame];
+    }
     public int[] getFrameOffsets() {
         return mFrameOffsets;
     }
